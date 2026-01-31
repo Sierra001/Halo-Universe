@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novels & Lore | Halo Universe Archive</title>
+    <link rel="icon" type="image/favi" href="/images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .novels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .novel-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .novel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .novel-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .novel-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .novel-header {
+            margin-bottom: 15px;
+        }
+        
+        .novel-header h3 {
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+        
+        .novel-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .novel-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .novel-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        
+        .novel-features li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .novel-features li:before {
+            content: "▸";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .novel-actions {
+            margin-top: auto;
+            text-align: center;
+        }
+        
+        .novel-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .novel-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .timeline-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .timeline-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .timeline-btn.active,
+        .timeline-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .reading-order {
+            margin-top: 50px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .order-list {
+            list-style: decimal;
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+        
+        .order-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .order-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .order-list li strong {
+            color: var(--text-color);
+        }
+        
+        .novel-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .image-upload-note {
+            background: var(--surface-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .novels-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-filter {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-ring-planet"></i>
+                    <img src="images/logo.png" alt="ONI logo" style="width:70px;height:70px;object-fit:cover;margin-left:10px;">
+                    <span>HALO ARCHIVE</span>
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> Bungie Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="bungie/halo1.html">Halo: Combat Evolved</a></li>
+                            <li><a href="bungie/halo2.html">Halo 2</a></li>
+                            <li><a href="bungie/halo3.html">Halo 3</a></li>
+                            <li><a href="bungie/halo3odst.html">Halo 3: ODST</a></li>
+                            <li><a href="bungie/haloreach.html">Halo: Reach</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> 343 Industries Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="343i/halo4.html">Halo 4</a></li>
+                            <li><a href="343i/halo5.html">Halo 5: Guardians</a></li>
+                            <li><a href="343i/halo6.html">Halo Infinite</a></li>
+                            <li><a href="343i/halowars1.html">Halo Wars</a></li>
+                            <li><a href="343i/halowars2.html">Halo Wars 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="novels.html" class="active"><i class="fas fa-book"></i> Novels & Lore</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+                
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="novels-page">
+        <section class="page-hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="container">
+                <h1 class="hero-title">Novels & Expanded Lore</h1>
+                <p class="hero-subtitle">Explore the rich literary universe beyond the games</p>
+            </div>
+        </section>
+        
+        <section class="novels-section">
+            <div class="container">
+                <h2>The Expanded Halo Universe</h2>
+                <div class="section-divider"></div>
+                <p>The Halo franchise extends far beyond the games, with over 30 novels, comics, and short stories that explore every corner of the universe. From the origins of the Spartan program to the political machinations of the Covenant, these works provide depth and context to the epic saga.</p>
+                
+                <div class="timeline-filter">
+                    <button class="timeline-btn active" data-era="all">All Novels</button>
+                    <button class="timeline-btn" data-era="original">Original Trilogy Era</button>
+                    <button class="timeline-btn" data-era="post-war">Post-War Era</button>
+                    <button class="timeline-btn" data-era="forerunner">Forerunner Saga</button>
+                    <button class="timeline-btn" data-era="anthology">Anthologies</button>
+                </div>
+                
+                <div class="novels-container" id="novels-container">
+                    <div class="novel-card" data-era="original">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/halofallofreach.png" alt="Halo: The Fall of Reach" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>The Fall of Reach</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Eric Nylund</span>
+                                    <span class="novel-year">2001</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>The novel that started it all, detailing the origins of the Spartan program and Master Chief's early career. Released as a tie-in to Halo: Combat Evolved.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Spartan origins story</li>
+                                <li>Prequel to Halo: CE</li>
+                                <li>Essential reading for fans</li>
+                                <li>352 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_The_Fall_of_Reach" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="original">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/theflood.jpg" alt="Halo: The Flood" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>The Flood</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">William C. Dietz</span>
+                                    <span class="novel-year">2003</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>A novelization of the first game, expanding on the events of Halo: Combat Evolved with additional perspectives and story elements not shown in the game.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Game adaptation</li>
+                                <li>First Contact with Flood</li>
+                                <li>Additional storylines</li>
+                                <li>416 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_The_Flood" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="original">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/first-strike.jpg" alt="Halo: First Strike" class="novel-image" >
+                        </div>
+                        
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>First Strike</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Eric Nylund</span>
+                                    <span class="novel-year">2003</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>Bridges the gap between Halo: Combat Evolved and Halo 2, following Master Chief's return to Earth and the beginning of the Covenant's invasion.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Bridge novel between Halo CE and 2</li>
+                                <li>Earth invasion setup</li>
+                                <li>Character development</li>
+                                <li>400 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_First_Strike" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="original">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/ghost0fonyx.jpg" alt="Halo: Ghosts of Onyx" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>Ghosts of Onyx</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Eric Nylund</span>
+                                    <span class="novel-year">2006</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>Introduces the Spartan-III program and the mysterious Forerunner planet Onyx, setting up future storylines in the expanded universe.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Spartan-III program</li>
+                                <li>Forerunner mysteries</li>
+                                <li>Expanded universe setup</li>
+                                <li>384 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_Ghosts_of_Onyx" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="forerunner">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/cryptum.jpg" alt="Halo: Cryptum" class="novel-image">
+                        </div>
+
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>Cryptum</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Greg Bear</span>
+                                    <span class="novel-year">2011</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>The first book in the Forerunner Saga, exploring the ancient history of the Forerunner civilization and their war with the Flood.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Forerunner history</li>
+                                <li>Ancient mysteries</li>
+                                <li>Flood origins</li>
+                                <li>352 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_Cryptum" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="post-war">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/shadowsofreach.jpg" alt="Halo: Shadows of Reach" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>Shadows of Reach</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Troy Denning</span>
+                                    <span class="novel-year">2020</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>Set after Halo 5, following Master Chief's return to Reach to recover crucial assets from CASTLE Base. Connects to Halo Infinite.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Post-Halo 5 story</li>
+                                <li>Blue Team mission</li>
+                                <li>Halo Infinite prequel</li>
+                                <li>432 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_Shadows_of_Reach" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="anthology">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/evolutions.jpg" alt="Halo: Evolutions" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>Evolutions</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Various Authors</span>
+                                    <span class="novel-year">2009</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>An anthology of short stories that expand on various aspects of the Halo universe, from the Covenant's perspective to untold Spartan stories.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Short story collection</li>
+                                <li>Multiple authors</li>
+                                <li>Varied perspectives</li>
+                                <li>512 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_Evolutions_-_Essential_Tales_of_the_Halo_Universe" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="novel-card" data-era="post-war">
+                        <div class="novel-image-placeholder">
+                            <img src="images/novels/badbloodjpg.jpg" alt="Halo: Bad Blood" class="novel-image">
+                        </div>
+                        
+                        <div class="novel-content">
+                            <div class="novel-header">
+                                <h3>Bad Blood</h3>
+                                <div class="novel-meta">
+                                    <span class="novel-author">Matt Forbeck</span>
+                                    <span class="novel-year">2018</span>
+                                </div>
+                            </div>
+                            
+                            <div class="novel-description">
+                                <p>Direct sequel to New Blood, following Spartan Edward Buck as he deals with the aftermath of the Created uprising and searches for his team.</p>
+                            </div>
+                            
+                            <ul class="novel-features">
+                                <li>Sequel to New Blood</li>
+                                <li>Edward Buck's story</li>
+                                <li>Post-Halo 5 events</li>
+                                <li>336 pages</li>
+                            </ul>
+                            
+                            <div class="novel-actions">
+                                <a href="https://www.halopedia.org/Halo:_Bad_Blood" class="novel-btn" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reading-order">
+                    <h2><i class="fas fa-list-ol"></i> Recommended Reading Order</h2>
+                    <p>For new readers, here's a recommended reading order to best experience the Halo expanded universe chronologically:</p>
+                    <ol class="order-list">
+                        <li><strong>Halo: Cryptum</strong> (Forerunner Saga #1) - 100,000+ years before Halo CE</li>
+                        <li><strong>Halo: Primordium</strong> (Forerunner Saga #2) - Continues Forerunner story</li>
+                        <li><strong>Halo: Silentium</strong> (Forerunner Saga #3) - Conclusion of Forerunner Saga</li>
+                        <li><strong>Halo: Contact Harvest</strong> - First contact with Covenant (2524)</li>
+                        <li><strong>Halo: The Fall of Reach</strong> - Spartan origins (2525-2552)</li>
+                        <li><strong>Halo: The Flood</strong> - Halo: CE events (2552)</li>
+                        <li><strong>Halo: First Strike</strong> - Between Halo CE and Halo 2 (2552)</li>
+                        <li><strong>Halo: Ghosts of Onyx</strong> - Spartan-III program (2552)</li>
+                        <li><strong>Halo: Glasslands</strong> (Kilo-Five Trilogy #1) - Post-war (2553)</li>
+                        <li><strong>Halo: The Thursday War</strong> (Kilo-Five Trilogy #2) - Continues post-war story</li>
+                        <li><strong>Halo: Mortal Dictata</strong> (Kilo-Five Trilogy #3) - Conclusion of Kilo-Five</li>
+                        <li><strong>Halo: Shadow of Intent</strong> - Post-war Sangheili story</li>
+                        <li><strong>Halo: Envoy</strong> - Jiralhanae conflict</li>
+                        <li><strong>Halo: Retribution</strong> - Grey Team story</li>
+                        <li><strong>Halo: Silent Storm</strong> - Early Master Chief missions</li>
+                        <li><strong>Halo: Oblivion</strong> - Sequel to Silent Storm</li>
+                        <li><strong>Halo: Shadows of Reach</strong> - Post-Halo 5, pre-Infinite</li>
+                        <li><strong>Halo: Divine Wind</strong> - Latest novel in timeline</li>
+                    </ol>
+                </div> 
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <i class="fas fa-ring-planet"></i>
+                        <span>HALO ARCHIVE</span>
+                    </a>
+                    <p>A comprehensive guide to the Halo universe from Combat Evolved to Infinite.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="novels.html">Novels & Lore</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Game Studios</h4>
+                    <ul>
+                        <li><a href="bungie/halo1.html">Bungie Games</a></li>
+                        <li><a href="343i/halo4.html">343 Industries Games</a></li>
+                        <li><a href="https://www.bungie.net/7" target="_self">Bungie</a></li>
+                        <li><a href="https://www.halowaypoint.com" target="_self">343 industries</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-legal">
+                    <p>Halo is a registered trademark of Microsoft Corporation. This site is a fan-made archive for educational purposes.</p>
+                    <p class="copyright">&copy; 2026 Halo Universe Archive. Copyrights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('halo-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            localStorage.setItem('halo-theme', isDark ? 'dark' : 'light');
+        });
+        
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('mobile-active');
+            mobileMenuBtn.setAttribute('aria-expanded', navList.classList.contains('mobile-active'));
+        });
+        
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('mobile-active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        const timelineBtns = document.querySelectorAll('.timeline-btn');
+        const novelCards = document.querySelectorAll('.novel-card');
+        
+        timelineBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                timelineBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const era = btn.dataset.era;
+                
+                novelCards.forEach(card => {
+                    if (era === 'all' || card.dataset.era === era) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

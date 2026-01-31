@@ -3,41 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halo 3</title>
+    <title>Halo 3 | Halo Universe Archive</title>
+    <link rel="icon" type="image/favi" href="/images/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <ul>
-                    <a href="bungie.html">Bungie</a>
-                    <li><a href="haloCE.html">Halo:CE</a></li>
-                    <li><a href="halo2.html">Halo 2</a></li>
-                    <li><a href="halo3.html">Halo 3</a></li>
-                    <li><a href="halo3ODST.html">Halo 3 ODST</a></li>
-                    <li><a href="haloReach.html">Halo Reach</a></li>
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <i class="fas fa-ring-planet"></i>
+                    <img src="../images/logo.png" alt="ONI logo" style="width:70px;height:70px;object-fit:cover;margin-left:10px;">
+                    <span>HALO ARCHIVE</span>
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> Bungie Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="halo1.html">Halo: Combat Evolved</a></li>
+                            <li><a href="halo2.html">Halo 2</a></li>
+                            <li><a href="halo3.html" class="active">Halo 3</a></li>
+                            <li><a href="halo3odst.html">Halo 3: ODST</a></li>
+                            <li><a href="haloreach.html">Halo: Reach</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> 343 Industries Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../343i/halo4.html">Halo 4</a></li>
+                            <li><a href="../343i/halo5.html">Halo 5: Guardians</a></li>
+                            <li><a href="../343i/halo6.html">Halo Infinite</a></li>
+                            <li><a href="../343i/halowars1.html">Halo Wars</a></li>
+                            <li><a href="../343i/halowars2.html">Halo Wars 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../novels.html"><i class="fas fa-book"></i> Novels & Lore</a></li>
+                    <li><a href="../gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="../calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="../contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
                 </ul>
-                <ul>
-                    <a href="../343i.html"> 343 Industries</a>
-                    <li><a href="../haloWars1.html">Halo wars</a></li>
-                    <li><a href="../halo4.html">Halo 4</a></li>
-                    <li><a href="../haloSpartanAssault.html"> Halo Spartan Strike</a></li>
-                    <li><a href="../haloSpartanStrike.html"> Halo Spartan Strike</a></li>
-                    <li><a href="../Halo5Guardian.html">Halo 5 Guardian</a></li>
-                    <li><a href="../haloWars2.html">Halo Wars 2</a></li>
-                    <li><a href="../HaloInfinite.html">Halo Infinite</a></li>
-                </ul>
-                <li><a href="../novel.html">Halo Novel</a></li>
-                <li><a href="../gallery.html">Gallery</a></li>
-                <li><a href="../about.html">About</a></li>
-            </ul>
-        </nav>
+                
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
     </header>
-    <main>
+
+    <main class="game-page">
+        <section class="page-hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="container">
+                <h1 class="hero-title">Halo 3</h1>
+                <p class="hero-subtitle">Finish the Fight</p>
+            </div>
+        </section>
+        
+        <section class="game-content">
+            <div class="container">
+                <div class="game-info">
+                    <div class="game-details">
+                        <h2>Game Information</h2>
+                        <div class="section-divider"></div>
+                        
+                        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border-color); font-weight: bold;">Release Date:</td>
+                                <td style="padding: 10px; border: 1px solid var(--border-color);">September 25, 2007</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border-color); font-weight: bold;">Developer:</td>
+                                <td style="padding: 10px; border: 1px solid var(--border-color);">Bungie Studios</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border-color); font-weight: bold;">Platform:</td>
+                                <td style="padding: 10px; border: 1px solid var(--border-color);">Xbox 360, Xbox One, Windows</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border-color); font-weight: bold;">Metacritic Score:</td>
+                                <td style="padding: 10px; border: 1px solid var(--border-color);">94/100</td>
+                            </tr>
+                        </table>
+                        
+                        <h3>Synopsis</h3>
+                        <p>Halo 3 is a first-person shooter video game developed by Bungie Studios for the Xbox 360 console. Released worldwide on September 25, 2007, it is the third installment in the Halo franchise and concludes the story arc that began with Halo: Combat Evolved and continued in Halo 2.</p>
+                        <p>The game continues the story of the Master Chief as he returns to Earth to finish the fight against the Covenant and the Flood. Halo 3 introduces new vehicles, weapons, and gameplay features, along with a significantly expanded suite of multiplayer and online options through Xbox Live.</p>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Concludes the original Halo trilogy's story arc</li>
+                            <li>Four-player cooperative campaign mode</li>
+                            <li>Theater mode for saving and sharing gameplay clips</li>
+                            <li>Forge mode for custom map creation and editing</li>
+                            <li>Enhanced graphics and physics engine</li>
+                            <li>Equipment system with deployable items</li>
+                            <li>Expanded multiplayer with 24 achievements</li>
+                        </ul>
+                        
+                        <h3>Campaign Missions</h3>
+                        <ol>
+                            <li>Arrival</li>
+                            <li>Sierra 117</li>
+                            <li>Crow's Nest</li>
+                            <li>Tsavo Highway</li>
+                            <li>The Storm</li>
+                            <li>Floodgate</li>
+                            <li>The Ark</li>
+                            <li>The Covenant</li>
+                            <li>Cortana</li>
+                            <li>Halo</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="game-navigation">
+                    <a href="halo2.html" class="nav-btn"><i class="fas fa-arrow-left"></i> Previous: Halo 2</a>
+                    <a href="halo3odst.html" class="nav-btn next-btn">Next: Halo 3: ODST <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
     </main>
-    <footer>
-        <small>2025 &#169; ONI & UNSC. All Rights Reserved.</small>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="../index.html">
+                        <i class="fas fa-ring-planet"></i>
+                        <span>HALO ARCHIVE</span>
+                    </a>
+                    <p>A comprehensive guide to the Halo universe from Combat Evolved to Infinite.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../novels.html">Novels & Lore</a></li>
+                        <li><a href="../gallery.html">Gallery</a></li>
+                        <li><a href="../calculator.html">Calculator</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Game Studios</h4>
+                    <ul>
+                        <li><a href="halo1.html">Bungie Games</a></li>
+                        <li><a href="../343i/halo4.html">343 Industries Games</a></li>
+                        <li><a href="https://www.bungie.net/7" target="_self">Bungie</a></li>
+                        <li><a href="https://www.halowaypoint.com" target="_self">343 industries</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-legal">
+                    <p>Halo is a registered trademark of Microsoft Corporation. This site is a fan-made archive for educational purposes.</p>
+                    <p class="copyright">&copy; 2026 Halo Universe Archive. Copyrights reserved.</p>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('halo-theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            localStorage.setItem('halo-theme', isDark ? 'dark' : 'light');
+        });
+        
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('mobile-active');
+            mobileMenuBtn.setAttribute('aria-expanded', navList.classList.contains('mobile-active'));
+        });
+        
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('mobile-active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo Stats Calculator | Halo Universe Archive</title>
+    <link rel="icon" type="image/favi" href="/images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .calculator-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--text-secondary);
+        }
+        
+        .calculator-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-ring-planet"></i>
+                    <img src="images/logo.png" alt="ONI logo" style="width:70px;height:70px;object-fit:cover;margin-left:10px;">
+                    <span>HALO ARCHIVE</span>
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> Bungie Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="bungie/halo1.html">Halo: Combat Evolved</a></li>
+                            <li><a href="bungie/halo2.html">Halo 2</a></li>
+                            <li><a href="bungie/halo3.html">Halo 3</a></li>
+                            <li><a href="bungie/halo3odst.html">Halo 3: ODST</a></li>
+                            <li><a href="bungie/haloreach.html">Halo: Reach</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-gamepad"></i> 343 Industries Games <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="343i/halo4.html">Halo 4</a></li>
+                            <li><a href="343i/halo5.html">Halo 5: Guardians</a></li>
+                            <li><a href="343i/halo6.html">Halo Infinite</a></li>
+                            <li><a href="343i/halowars1.html">Halo Wars</a></li>
+                            <li><a href="343i/halowars2.html">Halo Wars 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="novels.html"><i class="fas fa-book"></i> Novels & Lore</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="calculator.html" class="active"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+                
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="calculator-page">
+        <section class="page-hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="container">
+                <h1 class="hero-title">Halo Stats Calculator</h1>
+                <p class="hero-subtitle">Calculate game statistics, damage, and more</p>
+            </div>
+        </section>
+        
+        <section class="calculator-section">
+            <div class="container">
+                <div class="calculator-description">
+                    <h2>Interactive Calculator</h2>
+                    <div class="section-divider"></div>
+                    <p>Use this calculator for various Halo-related calculations including damage output, time to kill, and game statistics. This tool helps players optimize their gameplay and understand game mechanics better.</p>
+                </div>
+                
+                <div class="calculator-container">
+                    <div class="calculator-display" id="display">0</div>
+                    <div class="calculator-buttons">
+                        <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+                        <button class="calc-btn" onclick="deleteLast()">←</button>
+                        <button class="calc-btn operator" onclick="appendToDisplay('/')">/</button>
+                        <button class="calc-btn operator" onclick="appendToDisplay('*')">×</button>
+                        
+                        <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
+                        <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
+                        <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
+                        <button class="calc-btn operator" onclick="appendToDisplay('-')">-</button>
+                        
+                        <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
+                        <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
+                        <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
+                        <button class="calc-btn operator" onclick="appendToDisplay('+')">+</button>
+                        
+                        <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
+                        <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
+                        <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
+                        <button class="calc-btn equals" onclick="calculate()" rowspan="2">=</button>
+                        
+                        <button class="calc-btn" onclick="appendToDisplay('0')" colspan="2">0</button>
+                        <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
+                    </div>
+                </div>
+                
+                <div class="calculator-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Damage Calculator</h3>
+                        <p>Calculate weapon damage based on distance and target type</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Time to Kill</h3>
+                        <p>Calculate optimal time to eliminate opponents</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Stats Tracker</h3>
+                        <p>Track and analyze your gameplay statistics</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <i class="fas fa-ring-planet"></i>
+                        <span>HALO ARCHIVE</span>
+                    </a>
+                    <p>A comprehensive guide to the Halo universe from Combat Evolved to Infinite.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="novels.html">Novels & Lore</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Game Studios</h4>
+                    <ul>
+                        <li><a href="bungie/halo1.html">Bungie Games</a></li>
+                        <li><a href="343i/halo4.html">343 Industries Games</a></li>
+                        <li><a href="https://www.bungie.net/7" target="_self">Bungie</a></li>
+                        <li><a href="https://www.halowaypoint.com" target="_self">343 industries</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-legal">
+                    <p>Halo is a registered trademark of Microsoft Corporation. This site is a fan-made archive for educational purposes.</p>
+                    <p class="copyright">&copy; 2026 Halo Universe Archive. Copyrights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('halo-theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            localStorage.setItem('halo-theme', isDark ? 'dark' : 'light');
+        });
+        
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('mobile-active');
+            mobileMenuBtn.setAttribute('aria-expanded', navList.classList.contains('mobile-active'));
+        });
+        
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('mobile-active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        let display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = null;
+        let waitingForNewInput = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function appendToDisplay(value) {
+            if (waitingForNewInput) {
+                currentInput = value;
+                waitingForNewInput = false;
+            } else {
+                currentInput = currentInput === '0' ? value : currentInput + value;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            previousInput = null;
+            operator = null;
+            waitingForNewInput = false;
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        function calculate() {
+            if (previousInput === null || operator === null) return;
+            
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            let result = 0;
+            
+            switch(operator) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+            
+            currentInput = result.toString();
+            operator = null;
+            previousInput = null;
+            waitingForNewInput = true;
+            updateDisplay();
+        }
+
+        document.querySelectorAll('.operator').forEach(button => {
+            button.addEventListener('click', function() {
+                if (operator !== null && previousInput !== null && !waitingForNewInput) {
+                    calculate();
+                }
+                operator = this.textContent === '×' ? '*' : this.textContent;
+                previousInput = currentInput;
+                waitingForNewInput = true;
+            });
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>
